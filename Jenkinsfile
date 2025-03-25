@@ -32,7 +32,7 @@ node {
         def latest_version = getSnykVersion()
         echo "Latest Snyk CLI Version: ${latest_version}"
 
-        def snyk_cli_dl_linux="https://github.com/snyk/snyk/releases/download/${latest_version}/snyk-linux"
+        def snyk_cli_dl_linux="https://github.com/snyk/snyk/releases/download/${latest_version}/snyk-linux-arm64"
         echo "Download URL: ${snyk_cli_dl_linux}"
 
         sh """
