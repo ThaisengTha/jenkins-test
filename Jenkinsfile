@@ -28,7 +28,7 @@ node {
 
     stage('Download Latest Snyk CLI') {
     def snykBinary = snykCliBaseName()
-    echo "Getting Snyk CLI Version"
+    getSnykVersion();
 
     sh """
     rm -rf ./snyk
