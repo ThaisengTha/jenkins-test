@@ -27,13 +27,14 @@ def snykCliBaseName(){
 node {
 
     stage('Download Latest Snyk CLI') {
+    def snykBinary = snykCliBaseName()
     echo "Getting Snyk CLI Version"
 
     sh """
     rm -rf ./snyk
     echo "Listing all files with ls"
     ls -la
-    curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux -o snyk
+    curl --compressed https://downloads.snyk.io/cli/stable/${snykBinary} -o snyk
     chmod +x ./snyk
     ls -la
     ./snyk -v
