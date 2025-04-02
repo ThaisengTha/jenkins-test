@@ -27,20 +27,14 @@ def snykCliBaseName(){
 node {
 
     stage('Download Latest Snyk CLI') {
-        echo "Getting Snyk CLI Version"
+    echo "Getting Snyk CLI Version"
 
-        def latest_version = getSnykVersion()
-        echo "Latest Snyk CLI Version: ${latest_version}"
-
-        def snyk_cli_dl_linux=https://github.com/snyk/snyk/releases/download/${latest_version}/snyk-linux-arm64
-        echo "Download URL: ${snyk_cli_dl_linux}"
-
-        sh """
-        rm -rf ./snyk
-        curl -Lo ./snyk "${snyk_cli_dl_linux}"
-        chmod +x snyk
-        ls -la
-        ./snyk -v
-        """
-    }
+    sh """
+    rm -rf ./snyk
+    curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux -o snyk
+    chmod +x ./snyk
+    ls -la
+    ./snyk -v
+    """
+}
 }
