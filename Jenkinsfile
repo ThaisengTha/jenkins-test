@@ -31,6 +31,8 @@ node {
 
     sh """
     rm -rf ./snyk
+    echo "Listing all files with ls"
+    ls -la
     curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux -o snyk
     chmod +x ./snyk
     ls -la
