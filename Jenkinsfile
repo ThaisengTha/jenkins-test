@@ -37,8 +37,8 @@ node {
     echo "Troubleshooting: "
     uname -m
     uname -a
-    file snyk
     ls -la
+    file snyk
     ./snyk -v
     """
 }
