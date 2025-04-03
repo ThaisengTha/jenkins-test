@@ -39,6 +39,7 @@ node {
     uname -a
     ls -la
     ./snyk -v
+    ./snyk test
     """
 }
 }
