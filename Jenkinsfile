@@ -29,14 +29,12 @@ node {
     stage('Download Latest Snyk CLI') {
     def snykBinary = snykCliBaseName()
 
-
     sh """
     rm -rf ./snyk
-    echo "Listing all files with ls"
     ls -la
     curl --compressed https://downloads.snyk.io/cli/stable/snyk-macos -o snyk
     chmod +x ./snyk
-    echo("Troubleshooting: ")
+    echo "Troubleshooting: "
     uname -m
     file snyk
     ls -la
