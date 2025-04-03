@@ -38,7 +38,6 @@ node {
     uname -m
     uname -a
     ls -la
-    file snyk
     ./snyk -v
     """
 }
