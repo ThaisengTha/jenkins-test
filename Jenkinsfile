@@ -28,8 +28,7 @@ node {
 
     stage('Download Latest Snyk CLI') {
     def snykBinary = snykCliBaseName()
-    echo "binary is ${snykBinary}"
-    getSnykVersion();
+
 
     sh """
     rm -rf ./snyk
@@ -37,6 +36,9 @@ node {
     ls -la
     curl --compressed https://downloads.snyk.io/cli/stable/snyk-macos -o snyk
     chmod +x ./snyk
+    echo("Troubleshooting: ")
+    uname -m
+    file snyk
     ls -la
     ./snyk -v
     """
