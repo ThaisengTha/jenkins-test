@@ -32,10 +32,11 @@ node {
     sh """
     rm -rf ./snyk
     ls -la
-    curl --compressed https://downloads.snyk.io/cli/stable/snyk-macos -o snyk
+    curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux-arm64 -o snyk
     chmod +x ./snyk
     echo "Troubleshooting: "
     uname -m
+    uname -a
     file snyk
     ls -la
     ./snyk -v
