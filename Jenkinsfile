@@ -15,7 +15,7 @@ pipeline {
         snykSecurity(
           /* only these two are really required */
           snykInstallation: 'snyk-tool-config',
-          snykTokenId:      'ec977fa3-b9ef-4a16-a42d-5e44674882b8',
+          snykTokenId:      '1e2382ea-fcab-4884-a75a-97e5385e87ee',
 
           /* common quality-gate knobs */
           failOnIssues:     true,            // default is true
