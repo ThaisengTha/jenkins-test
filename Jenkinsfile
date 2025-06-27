@@ -1,17 +1,12 @@
 pipeline {
   agent any
 
-  environment {
-    SNYK_TOKEN = credentials('SNYK_TOKEN')
-  }
-
   tools {
     nodejs 'node20'       // NodeJS tool you defined
     snyk   'snyk-tool-config'   // Snyk tool you already configured
   }
 
   stages {
-    stage('check token') { steps { echo SNYK_TOKEN } }
     stage('Checkout')  { steps { checkout scm } }
     stage('Build')     { steps { echo "insert build commands here"} }
 
@@ -20,7 +15,7 @@ pipeline {
         snykSecurity(
           /* only these two are really required */
           snykInstallation: 'snyk-tool-config',
-          snykTokenId:      'SNYK_TOKEN',
+          snykTokenId:      'ec977fa3-b9ef-4a16-a42d-5e44674882b8',
 
           /* common quality-gate knobs */
           failOnIssues:     true,            // default is true
