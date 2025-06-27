@@ -1,45 +1,39 @@
-// Function to get the latest Snyk version
-def getSnykVersion() {
-    def LATEST_VERSION = sh(script: 'curl -Is "https://github.com/snyk/cli/releases/latest" | grep "^location" | sed s#.*tag/##g', returnStdout: true)
-    LATEST_VERSION = LATEST_VERSION.trim()
+pipeline {
+  agent any
 
-    if (LATEST_VERSION) {
-        println "Found the latest version of Snyk: ${LATEST_VERSION}"
-        return "${LATEST_VERSION}"
-    } else {
-        return "v1.1295.4"
+  /* Makes the Snyk CLI that Jenkins installed available on PATH */
+  tools { snyk 'SnykLatest' }
+
+  /* Best practice: fetch the token through Credentials Binding */
+  environment {
+      SNYK_TOKEN = credentials('SNYK_TOKEN_ID')
+  }
+
+  stages {
+    stage('Checkout')  { steps { checkout scm } }
+    stage('Build')     { steps { sh 'npm ci' } }
+
+    stage('Snyk Open-Source Scan') {
+      steps {
+        snykSecurity(
+          /* only these two are really required */
+          snykInstallation: 'SnykLatest',
+          snykTokenId:      'SNYK_TOKEN_ID',
+
+          /* common quality-gate knobs */
+          failOnIssues:     true,            // default is true
+          severity:         'high',          // fail if ≥ high
+          monitorProjectOnBuild: true,       // create/refresh project in app.snyk.io
+
+          /* anything you’d normally add to `snyk test` */
+          additionalArguments: '--all-projects --sarif-file-output=results.sarif'
+        )
+      }
     }
-}
+  }
 
-def snykCliBaseName(){
-    if (isUnix()) {
-    def uname = sh script: 'uname', returnStdout: true
-    if (uname.startsWith("Darwin")) {
-    return "snyk-macos"
-    } else {
-    return "snyk-linux"
-    }
-    } else {
-    return "snyk-win.exe"
-    }
-}
-
-node {
-
-    stage('Download Latest Snyk CLI') {
-    def snykBinary = snykCliBaseName()
-
-    sh """
-    rm -rf ./snyk
-    ls -la
-    curl --compressed https://downloads.snyk.io/cli/stable/snyk-linux-arm64 -o snyk
-    chmod +x ./snyk
-    echo "Troubleshooting: "
-    uname -m
-    uname -a
-    ls -la
-    ./snyk -v
-    ./snyk auth
-    """
-}
+  /* Optional: always publish the HTML report Jenkins creates */
+  post {
+    always { archiveArtifacts artifacts: 'results.sarif', allowEmptyArchive: true }
+  }
 }
