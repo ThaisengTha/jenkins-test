@@ -23,7 +23,7 @@ pipeline {
           monitorProjectOnBuild: true,       // create/refresh project in app.snyk.io
 
           /* anything you’d normally add to `snyk test` */
-          additionalArguments: '--all-projects --sarif-file-output=results.sarif'
+          additionalArguments: ''
         )
       }
     }
