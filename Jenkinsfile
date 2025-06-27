@@ -8,7 +8,7 @@ pipeline {
 
   stages {
     stage('Checkout')  { steps { checkout scm } }
-    stage('Build')     { }
+    stage('Build')     { steps { echo "insert build commands here"} }
 
     stage('Snyk Open-Source Scan') {
       steps {
