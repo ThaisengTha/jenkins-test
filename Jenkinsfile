@@ -16,14 +16,6 @@ pipeline {
           /* only these two are really required */
           snykInstallation: 'snyk-tool-config',
           snykTokenId:      '1e2382ea-fcab-4884-a75a-97e5385e87ee',
-
-          /* common quality-gate knobs */
-          failOnIssues:     true,            // default is true
-          severity:         'high',          // fail if ≥ high
-          monitorProjectOnBuild: true,       // create/refresh project in app.snyk.io
-
-          /* anything you’d normally add to `snyk test` */
-          additionalArguments: ''
         )
       }
     }
