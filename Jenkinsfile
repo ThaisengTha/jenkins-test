@@ -1,6 +1,10 @@
 pipeline {
   agent any
 
+  environment {
+    SNYK_TOKEN = credentials('SNYK_TOKEN')
+  }
+
   tools {
     nodejs 'node20'       // NodeJS tool you defined
     snyk   'snyk-tool-config'   // Snyk tool you already configured
