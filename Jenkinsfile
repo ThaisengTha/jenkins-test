@@ -1,14 +1,6 @@
 pipeline {
   agent any
 
-  /* Makes the Snyk CLI that Jenkins installed available on PATH */
-  tools { snyk 'SnykLatest' }
-
-  /* Best practice: fetch the token through Credentials Binding */
-  environment {
-      SNYK_TOKEN = credentials('SNYK_TOKEN_ID')
-  }
-
   stages {
     stage('Checkout')  { steps { checkout scm } }
     stage('Build')     { steps { sh 'npm ci' } }
