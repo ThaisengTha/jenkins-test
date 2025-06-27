@@ -10,7 +10,7 @@ pipeline {
         snykSecurity(
           /* only these two are really required */
           snykInstallation: 'SnykLatest',
-          snykTokenId:      'SNYK_TOKEN_ID',
+          snykTokenId:      'SNYK_TOKEN',
 
           /* common quality-gate knobs */
           failOnIssues:     true,            // default is true
