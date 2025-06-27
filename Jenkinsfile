@@ -1,3 +1,6 @@
+docker { image 'snyk/snyk-cli:arm64' }
+
+
 pipeline {
   agent any
 
