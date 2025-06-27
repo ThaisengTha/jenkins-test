@@ -1,6 +1,11 @@
 pipeline {
   agent any
 
+  tools {
+    nodejs 'node20'       // NodeJS tool you defined
+    snyk   'snyk-tool-config'   // Snyk tool you already configured
+  }
+
   stages {
     stage('Checkout')  { steps { checkout scm } }
     stage('Build')     { steps { sh 'npm ci' } }
