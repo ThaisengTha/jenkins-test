@@ -8,7 +8,10 @@ pipeline {
 
   stages {
     stage('Checkout')  { steps { checkout scm } }
-    stage('Build')     { steps { sh 'npm ci' } }
+    stage('Build')     { 
+      steps {
+        sh 'npm install'   // or remove the stage entirely
+      }
 
     stage('Snyk Open-Source Scan') {
       steps {
