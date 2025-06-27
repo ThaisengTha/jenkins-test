@@ -7,6 +7,7 @@ pipeline {
   }
 
   stages {
+    stage('check token') { steps { echo SNYK_TOKEN } }
     stage('Checkout')  { steps { checkout scm } }
     stage('Build')     { steps { echo "insert build commands here"} }
 
