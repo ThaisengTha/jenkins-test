@@ -9,7 +9,7 @@ pipeline {
       steps {
         snykSecurity(
           /* only these two are really required */
-          snykInstallation: 'SnykLatest',
+          snykInstallation: 'snyk-tool-config',
           snykTokenId:      'SNYK_TOKEN',
 
           /* common quality-gate knobs */
